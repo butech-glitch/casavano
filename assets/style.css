@@ -1,0 +1,186 @@
+:root {
+  --green: #325336;
+  --green-deep: #29471b;
+  --sage: #88a47c;
+  --cream: #f5eedd;
+  --beige: #eae1d2;
+  --ink: #363636;
+  --serif: "Playfair Display", "Pretendard", "Apple SD Gothic Neo", serif;
+  --body: "Lora", "Pretendard", "Apple SD Gothic Neo", serif;
+  --header-h: 80px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); color: var(--ink); background: #fff; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { background: none; border: 0; cursor: pointer; font: inherit; color: inherit; }
+
+/* ---------- Header ---------- */
+.header {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  height: var(--header-h);
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 0 32px;
+  transition: background .35s, box-shadow .35s;
+}
+.header.is-scrolled { background: var(--beige); box-shadow: 0 1px 0 rgba(0,0,0,.04); }
+.menu-btn { width: 26px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+.menu-btn span { height: 1.5px; background: var(--cream); transition: background .35s; }
+.header.is-scrolled .menu-btn span { background: var(--green); }
+.brand { position: relative; width: 152px; height: 20px; }
+.logo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity .35s; }
+.logo--green { opacity: 0; }
+.header.is-scrolled .logo--light { opacity: 0; }
+.header.is-scrolled .logo--green { opacity: 1; }
+.util { justify-self: end; display: flex; gap: 28px; font-size: 16px; }
+.util a { color: var(--sage); transition: opacity .2s; }
+.util a:hover { opacity: .7; }
+
+/* ---------- Drawer ---------- */
+.drawer-dim { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .35s; }
+.drawer {
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 70;
+  width: min(360px, 86vw); background: #1d1d1d; padding: 96px 40px;
+  transform: translateX(-100%); transition: transform .4s cubic-bezier(.2,.7,.2,1);
+}
+.drawer-close { position: absolute; top: 22px; right: 26px; font-size: 34px; color: rgba(255,255,255,.6); line-height: 1; }
+.drawer li a {
+  display: block; padding: 14px 0;
+  font-family: "Pretendard", sans-serif; font-size: 16px; letter-spacing: 1px;
+  color: rgba(255,255,255,.5); transition: color .2s;
+}
+.drawer li a:hover { color: #fff; }
+body.drawer-open .drawer { transform: none; }
+body.drawer-open .drawer-dim { opacity: 1; pointer-events: auto; }
+body.drawer-open { overflow: hidden; }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative; min-height: 1470px;
+  background: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), url("img/hero-bg.jpg") center / cover no-repeat;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 118px 4vw 0; color: var(--cream); text-align: center;
+}
+.hero-logo { width: min(1526px, 100%); }
+.hero-copy { margin-top: 220px; }
+.hero-copy h2 { font-family: var(--serif); font-weight: 400; font-size: 22px; margin-bottom: 14px; }
+.hero-copy p { font-family: "Pretendard", sans-serif; font-size: 15px; line-height: 1.9; }
+
+/* ---------- Wide image ---------- */
+.wide img { width: 100%; height: 673px; object-fit: cover; }
+
+/* ---------- Promo ---------- */
+.promo { background: var(--green-deep); color: #fff; text-align: center; padding: 64px 20px 70px; font-family: var(--serif); }
+.promo h2 { font-weight: 400; font-size: 48px; margin-bottom: 18px; }
+.promo-en { font-size: 30px; color: var(--beige); margin-bottom: 16px; }
+.promo-ko { font-size: 20px; margin-bottom: 40px; }
+.promo-off { font-size: 26px; color: var(--beige); }
+
+/* ---------- Section head ---------- */
+.sec-head {
+  position: relative; max-width: 1200px; margin: 0 auto; padding: 0 20px;
+  text-align: center; color: var(--green); font-family: var(--serif);
+}
+.sec-head h2 { font-weight: 400; font-size: 48px; margin-bottom: 14px; }
+.sec-head p { font-size: 16px; }
+.more { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 43px; height: 43px; transition: transform .25s; }
+.more:hover { transform: translateY(-50%) scale(1.08); }
+
+/* ---------- Best item ---------- */
+.best { padding: 120px 0 140px; }
+.products {
+  max-width: 1440px; margin: 72px auto 0; padding: 0 32px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 28px;
+}
+.product a { display: block; }
+.thumb { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #f3f0ea; }
+.thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .5s, transform .8s; }
+.thumb .hover { opacity: 0; }
+.product a:hover .thumb .hover { opacity: 1; }
+.product a:hover .thumb img { transform: scale(1.03); }
+.p-name { margin-top: 20px; font-size: 16px; color: var(--ink); line-height: 1.5; }
+.p-price { margin-top: 6px; font-size: 15px; font-weight: 700; color: var(--green); }
+.p-badge {
+  display: inline-block; margin-top: 10px; padding: 3px 9px;
+  font-family: "Pretendard", sans-serif; font-size: 11px; letter-spacing: 1px;
+  color: #fff; background: var(--green);
+}
+
+/* ---------- About ---------- */
+.about {
+  position: relative; min-height: 432px; display: flex; align-items: center;
+  background: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)), url("img/about-bg.jpg") center / cover fixed no-repeat;
+  color: #fff;
+}
+.about-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 60px 48px; display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: center; }
+.about h2 { font-family: var(--serif); font-weight: 400; font-size: 48px; line-height: 1.35; }
+.about-text p { font-family: "Pretendard", sans-serif; font-size: 15px; line-height: 1.9; }
+.about-text p + p { margin-top: 18px; }
+
+/* ---------- Review ---------- */
+.review { padding: 120px 0 80px; }
+.empty { margin: 70px auto 0; text-align: center; color: #bbb; }
+.empty svg { margin: 0 auto 18px; }
+.empty p { font-size: 16.5px; color: #999; }
+
+/* ---------- Footer ---------- */
+.footer { padding: 70px 20px 80px; text-align: center; color: var(--green); font-size: 14px; line-height: 1.9; }
+.f-brand { color: var(--ink); font-size: 15px; margin-bottom: 26px; }
+.f-info div { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 10px; }
+.f-info dt { font-weight: 700; }
+.f-info dt.sep { margin-left: 4px; }
+.f-info dd a + a { margin-left: 8px; }
+.f-links { margin-top: 30px; display: flex; justify-content: center; gap: 22px; color: #3b3b3b; }
+
+/* ---------- Reveal animation ---------- */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
+.reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .products { grid-template-columns: repeat(2, 1fr); }
+  .hero { min-height: 1100px; }
+  .hero-copy { margin-top: 160px; }
+}
+
+@media (max-width: 767px) {
+  :root { --header-h: 60px; }
+  .header { padding: 0 16px; }
+  .brand { width: 118px; height: 16px; }
+  .util { gap: 16px; font-size: 14px; }
+
+  .hero { min-height: 100svh; padding-top: 96px; background-image: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), url("img/hero-bg-m.jpg"); }
+  .hero-copy { margin-top: auto; margin-bottom: 18vh; }
+  .hero-copy h2 { font-size: 20px; }
+  .hero-copy p { font-size: 13px; }
+
+  .wide img { height: auto; aspect-ratio: 4 / 3; }
+
+  .promo { padding: 48px 16px 52px; }
+  .promo h2 { font-size: 28px; }
+  .promo-en { font-size: 18px; }
+  .promo-ko { font-size: 14px; margin-bottom: 24px; }
+  .promo-off { font-size: 18px; }
+
+  .sec-head h2 { font-size: 32px; }
+  .sec-head p { font-size: 14px; }
+  .more { width: 34px; height: 34px; right: 16px; }
+
+  .best { padding: 72px 0 80px; }
+  .products { margin-top: 40px; padding: 0 16px; gap: 36px 12px; }
+  .p-name { font-size: 14px; margin-top: 12px; }
+  .p-price { font-size: 13px; }
+
+  .about { background-attachment: scroll; }
+  .about-inner { grid-template-columns: 1fr; gap: 24px; padding: 64px 16px; text-align: center; }
+  .about h2 { font-size: 32px; }
+  .about-text p { font-size: 13px; }
+  .about-text br { display: none; }
+
+  .review { padding: 72px 0 40px; }
+  .footer { font-size: 12px; padding: 50px 16px 60px; }
+}
