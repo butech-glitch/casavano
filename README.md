@@ -7,7 +7,12 @@
 - `assets/script.js` — BEST ITEM 상품 목록(상단 `products` 배열), 헤더/메뉴 동작
 - `assets/img/` — 이미지
 
-상품·로그인·장바구니 링크는 기존 casavano.kr 쇼핑몰로 연결됩니다.
+온라인 결제 기능은 없으며, 상품을 누르면 하단 연락처(전화·이메일)로 이동합니다.
 
 ## 호스팅
-GitHub Pages로 배포됩니다. `main` 브랜치에 push하면 자동으로 반영됩니다.
+GitHub Pages로 배포되며 도메인은 https://casavano.kr 입니다 (`CNAME` 파일).
+`main` 브랜치에 push하면 자동으로 반영됩니다.
+
+가비아 DNS 설정:
+- `@` A 레코드: 185.199.108.153 / 185.199.109.153 / 185.199.110.153 / 185.199.111.153
+- `www` CNAME: butech-glitch.github.io.
