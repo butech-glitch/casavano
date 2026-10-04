@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>장바구니 : casavano 까사바노</title>
+  <meta name="description" content="까사바노 — 디자인을 선택하고, 가죽과 패브릭 중 당신의 라이프스타일에 맞는 소재를 입히는 프리미엄 소파.">
+  <meta property="og:title" content="casavano 까사바노">
+  <meta property="og:description" content="Tailored Selection — 기성품에 맞추지 마세요.">
+  <meta property="og:image" content="https://casavano.kr/assets/img/sofa-wide.jpg">
+  <meta property="og:url" content="https://casavano.kr/">
+  <link rel="icon" href="assets/img/arrow.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="solid">
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="./" class="brand" aria-label="casavano 까사바노">
+      <img class="logo logo--light" src="assets/img/logo-light.png" alt="CASAVANO">
+      <img class="logo logo--green" src="assets/img/logo-green.png" alt="" aria-hidden="true">
+    </a>
+    <nav class="util">
+      <a href="#contact">Contact</a>
+      <a href="cart.html" class="cart-link">Cart<span class="cart-count" data-cart-count hidden>0</span></a>
+    </nav>
+  </header>
+
+  <!-- Side drawer -->
+  <div class="drawer-dim" id="drawerDim"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <button class="drawer-close" id="drawerClose" aria-label="메뉴 닫기">&times;</button>
+    <ul>
+      <li><a href="index.html#best">SHOP</a></li>
+      <li><a href="index.html#tailored">TAILORED SELECTION</a></li>
+      <li><a href="index.html#about">BRAND</a></li>
+      <li><a href="cart.html">CART</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+  </aside>
+
+  <main class="cart-page">
+    <h1 class="cart-title">CART</h1>
+    <div id="cartBody"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <p class="f-brand">casavano 까사바노</p>
+    <dl class="f-info">
+      <div><dt>상호명</dt><dd>나우스토리</dd><dt class="sep">ㅣ 대표</dt><dd>김은희</dd></div>
+      <div><dt>사업자등록번호</dt><dd>467-04-02359</dd></div>
+      <div><dt>통신판매업 신고번호</dt><dd>제[2022-용인처인-00327]호</dd></div>
+      <div><dt>ADDRESS</dt><dd>경기 용인시 처인구 한터로 55-30</dd></div>
+      <div><dt>CONTACT</dt><dd><a href="mailto:now-story@naver.com">now-story@naver.com</a> <a href="tel:01027154486">010.2715.4486</a></dd></div>
+    </dl>
+  </footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/cart-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>casavano 까사바노</title>
+  <meta name="description" content="까사바노 — 디자인을 선택하고, 가죽과 패브릭 중 당신의 라이프스타일에 맞는 소재를 입히는 프리미엄 소파.">
+  <meta property="og:title" content="casavano 까사바노">
+  <meta property="og:description" content="Tailored Selection — 기성품에 맞추지 마세요.">
+  <meta property="og:image" content="https://casavano.kr/assets/img/sofa-wide.jpg">
+  <meta property="og:url" content="https://casavano.kr/">
+  <link rel="icon" href="assets/img/arrow.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="solid">
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="./" class="brand" aria-label="casavano 까사바노">
+      <img class="logo logo--light" src="assets/img/logo-light.png" alt="CASAVANO">
+      <img class="logo logo--green" src="assets/img/logo-green.png" alt="" aria-hidden="true">
+    </a>
+    <nav class="util">
+      <a href="#contact">Contact</a>
+      <a href="cart.html" class="cart-link">Cart<span class="cart-count" data-cart-count hidden>0</span></a>
+    </nav>
+  </header>
+
+  <!-- Side drawer -->
+  <div class="drawer-dim" id="drawerDim"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <button class="drawer-close" id="drawerClose" aria-label="메뉴 닫기">&times;</button>
+    <ul>
+      <li><a href="index.html#best">SHOP</a></li>
+      <li><a href="index.html#tailored">TAILORED SELECTION</a></li>
+      <li><a href="index.html#about">BRAND</a></li>
+      <li><a href="cart.html">CART</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+  </aside>
+
+  <main class="pd" id="pd">
+    <div class="pd-top">
+      <div class="pd-gallery">
+        <div class="pd-main"><img id="pdMain" src="" alt=""></div>
+        <ul class="pd-thumbs" id="pdThumbs"></ul>
+      </div>
+
+      <div class="pd-info">
+        <p class="pd-crumb"><a href="index.html#best">SHOP</a> / <span id="pdCrumb"></span></p>
+        <h1 class="pd-name" id="pdName"></h1>
+        <p class="pd-tagline" id="pdTagline"></p>
+        <div class="pd-price" id="pdPrice"></div>
+
+        <dl class="pd-meta">
+          <div><dt>제작기간</dt><dd id="pdLead"></dd></div>
+          <div><dt>배송/설치</dt><dd id="pdDelivery"></dd></div>
+        </dl>
+
+        <div class="opt">
+          <p class="opt-label">사이즈</p>
+          <div class="opt-chips" id="optSize"></div>
+          <p class="opt-note" id="optSizeNote"></p>
+        </div>
+        <div class="opt">
+          <p class="opt-label">소재 <small>Tailored Selection</small></p>
+          <div class="opt-chips" id="optMaterial"></div>
+          <p class="opt-note" id="optMaterialNote"></p>
+        </div>
+        <div class="opt">
+          <p class="opt-label">컬러 <span id="optColorName"></span></p>
+          <div class="opt-colors" id="optColor"></div>
+          <p class="opt-note">* 화면과 실제 색상은 차이가 있을 수 있습니다.</p>
+        </div>
+
+        <div class="pd-buy">
+          <div class="qty">
+            <button type="button" id="qtyMinus" aria-label="수량 감소">−</button>
+            <input id="qty" type="number" min="1" value="1" aria-label="수량">
+            <button type="button" id="qtyPlus" aria-label="수량 증가">+</button>
+          </div>
+          <div class="pd-total"><span>총 상품금액</span><b id="pdTotal"></b></div>
+        </div>
+        <div class="pd-actions">
+          <button class="btn btn-line" id="addCart">장바구니</button>
+          <button class="btn btn-solid" id="buyNow">구매하기</button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="pd-tabs" id="pdTabs">
+      <a href="#tab-detail" class="is-on">상세정보</a>
+      <a href="#tab-spec">사이즈 · 배송</a>
+      <a href="#tab-policy">교환 · 반품</a>
+    </nav>
+
+    <section class="pd-section" id="tab-detail">
+      <div class="pd-story">
+        <h2 id="pdStoryTitle"></h2>
+        <p id="pdDesc"></p>
+        <ul class="pd-features" id="pdFeatures"></ul>
+      </div>
+      <div class="pd-long" id="pdLong"></div>
+    </section>
+
+    <section class="pd-section" id="tab-spec">
+      <h2 class="pd-h">사이즈 · 배송 안내</h2>
+      <table class="spec">
+        <thead><tr><th>구성</th><th>사이즈 (mm)</th><th>구성품</th><th>판매가</th></tr></thead>
+        <tbody id="specBody"></tbody>
+      </table>
+      <ul class="notice">
+        <li>모든 상품은 주문 후 제작되며, 제작기간은 약 2주 소요됩니다.</li>
+        <li>배송 및 설치비가 포함된 가격입니다. (도서산간 지역은 별도 문의)</li>
+        <li>설치 공간의 출입구·엘리베이터 크기를 미리 확인해 주세요.</li>
+      </ul>
+    </section>
+
+    <section class="pd-section" id="tab-policy">
+      <h2 class="pd-h">교환 · 반품 안내</h2>
+      <ul class="notice">
+        <li>주문 제작 상품 특성상 제작이 시작된 이후에는 단순 변심에 의한 취소 및 반품이 어려울 수 있습니다.</li>
+        <li>제품 하자 또는 오배송의 경우 수령 후 7일 이내 고객센터로 연락 주시면 교환 · 수리해 드립니다.</li>
+        <li>천연가죽 특유의 주름, 모공, 미세한 색상 차이는 제품 하자가 아닙니다.</li>
+        <li>문의: 010.2715.4486 · now-story@naver.com</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <p class="f-brand">casavano 까사바노</p>
+    <dl class="f-info">
+      <div><dt>상호명</dt><dd>나우스토리</dd><dt class="sep">ㅣ 대표</dt><dd>김은희</dd></div>
+      <div><dt>사업자등록번호</dt><dd>467-04-02359</dd></div>
+      <div><dt>통신판매업 신고번호</dt><dd>제[2022-용인처인-00327]호</dd></div>
+      <div><dt>ADDRESS</dt><dd>경기 용인시 처인구 한터로 55-30</dd></div>
+      <div><dt>CONTACT</dt><dd><a href="mailto:now-story@naver.com">now-story@naver.com</a> <a href="tel:01027154486">010.2715.4486</a></dd></div>
+    </dl>
+  </footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/product.js"></script>
+</body>
+</html>

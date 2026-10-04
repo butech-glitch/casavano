@@ -28,8 +28,8 @@
       <img class="logo logo--green" src="assets/img/logo-green.png" alt="" aria-hidden="true">
     </a>
     <nav class="util">
-      <a href="tel:01027154486">Call</a>
       <a href="#contact">Contact</a>
+      <a href="cart.html" class="cart-link">Cart<span class="cart-count" data-cart-count hidden>0</span></a>
     </nav>
   </header>
 
@@ -38,9 +38,10 @@
   <aside class="drawer" id="drawer" aria-hidden="true">
     <button class="drawer-close" id="drawerClose" aria-label="메뉴 닫기">&times;</button>
     <ul>
-      <li><a href="#best">SHOP</a></li>
-      <li><a href="#about">BRAND</a></li>
-      <li><a href="#review">REVIEW</a></li>
+      <li><a href="index.html#best">SHOP</a></li>
+      <li><a href="index.html#tailored">TAILORED SELECTION</a></li>
+      <li><a href="index.html#about">BRAND</a></li>
+      <li><a href="cart.html">CART</a></li>
       <li><a href="#contact">CONTACT</a></li>
     </ul>
   </aside>
@@ -82,6 +83,54 @@
       <ul class="products" id="products"></ul>
     </section>
 
+    <!-- Tailored Selection -->
+    <section class="tailored" id="tailored">
+      <div class="sec-head">
+        <div>
+          <h2>TAILORED SELECTION</h2>
+          <p>디자인을 선택하고, 소재와 컬러를 입혀 당신만의 소파를 완성하세요.</p>
+        </div>
+      </div>
+
+      <ol class="steps">
+        <li class="reveal"><span class="step-no">01</span><h3>Select Your Design</h3><p>프리미 · 마레 · 나나 · 윈느<br>공간에 어울리는 디자인과 사이즈를 고르세요.</p></li>
+        <li class="reveal"><span class="step-no">02</span><h3>Tailor Your Material</h3><p>이태리 천연면피 가죽 또는 프리미엄 패브릭<br>라이프스타일에 맞는 소재를 선택하세요.</p></li>
+        <li class="reveal"><span class="step-no">03</span><h3>Complete Your Color</h3><p>소재별 컬러 중 원하는 색을 고르면<br>주문 후 약 2주 동안 정성껏 제작합니다.</p></li>
+      </ol>
+
+      <div class="materials">
+        <article class="material reveal">
+          <div class="material-img"><img src="assets/img/products/premi/9.webp" alt="이태리 천연면피 가죽 클로즈업" loading="lazy"></div>
+          <div class="material-body">
+            <span class="material-tag">Leather</span>
+            <h3>이태리 천연면피 가죽</h3>
+            <p>코팅으로 덮어버린 가죽이 아닌, 살아 숨 쉬는 모공의 내추럴 가죽.<br>시간이 지날수록 깊어지는 색감과 부드러움을 느껴보세요.</p>
+            <ul class="swatches" data-swatches="leather"></ul>
+          </div>
+        </article>
+        <article class="material reveal">
+          <div class="material-img"><img src="assets/img/products/material/6.webp" alt="프리미엄 패브릭 원단 샘플" loading="lazy"></div>
+          <div class="material-body">
+            <span class="material-tag">Fabric</span>
+            <h3>프리미엄 패브릭</h3>
+            <p>부드러운 촉감과 다양한 컬러의 프리미엄 패브릭.<br>매일 기대어 쉬는 일상의 안락함을 더합니다.</p>
+            <ul class="swatches" data-swatches="fabric"></ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="craft">
+        <h3 class="craft-title reveal">기성품이 아닌, 주문 제작</h3>
+        <p class="craft-sub reveal">선택하신 디자인 · 소재 · 컬러로 한 대씩 제작합니다.</p>
+        <ul class="craft-grid">
+          <li class="reveal"><img src="assets/img/products/material/1.webp" alt="" loading="lazy"><span>01 소재 선별</span></li>
+          <li class="reveal"><img src="assets/img/products/material/2.webp" alt="" loading="lazy"><span>02 재단</span></li>
+          <li class="reveal"><img src="assets/img/products/material/3.webp" alt="" loading="lazy"><span>03 프레임 제작</span></li>
+          <li class="reveal"><img src="assets/img/products/material/4.webp" alt="" loading="lazy"><span>04 탄성 벨트 시공</span></li>
+        </ul>
+      </div>
+    </section>
+
     <!-- About -->
     <section class="about" id="about">
       <div class="about-inner">
@@ -95,19 +144,6 @@
       </div>
     </section>
 
-    <!-- Review -->
-    <section class="review" id="review">
-      <div class="sec-head">
-        <div>
-          <h2>REVIEW</h2>
-          <p>까사바노의 생생한 상품후기를 살펴보세요.</p>
-        </div>
-      </div>
-      <div class="empty">
-        <svg width="44" height="36" viewBox="0 0 44 36" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 20 9 3h26l7 17v13H2z"/><path d="M2 20h12l2 5h12l2-5h12"/></svg>
-        <p>게시물이 없습니다.</p>
-      </div>
-    </section>
   </main>
 
   <!-- Footer -->
@@ -122,6 +158,8 @@
     </dl>
   </footer>
 
-  <script src="assets/script.js"></script>
+  <script src="assets/data.js"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/home.js"></script>
 </body>
 </html>
