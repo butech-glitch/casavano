@@ -12,7 +12,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: var(--body); color: var(--ink); background: #fff; -webkit-font-smoothing: antialiased; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+body { font-family: var(--body); color: var(--ink); background: #fff; -webkit-font-smoothing: antialiased; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; word-break: keep-all; overflow-wrap: break-word; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
@@ -73,11 +73,27 @@ body.drawer-open { overflow: hidden; }
 .wide img { width: 100%; height: 673px; object-fit: cover; }
 
 /* ---------- Promo ---------- */
-.promo { background: var(--green-deep); color: #fff; text-align: center; padding: 64px 20px 70px; font-family: var(--serif); }
-.promo h2 { font-weight: 400; font-size: 48px; margin-bottom: 18px; }
-.promo-en { font-size: 30px; color: var(--beige); margin-bottom: 16px; }
-.promo-ko { font-size: 20px; margin-bottom: 40px; }
-.promo-off { font-size: 26px; color: var(--beige); }
+.promo { position: relative; overflow: hidden; background: var(--green-deep); color: #fff; padding: 80px 32px; }
+.promo::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 20%, rgba(234,225,210,.12), transparent 45%), radial-gradient(circle at 10% 90%, rgba(0,0,0,.25), transparent 50%); pointer-events: none; }
+.promo-inner { position: relative; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.05fr; gap: 64px; align-items: center; }
+.promo-label { display: inline-block; padding: 7px 14px; border: 1px solid rgba(234,225,210,.55); border-radius: 30px; font: 600 12px/1 "Pretendard", sans-serif; letter-spacing: 2px; color: var(--beige); margin-bottom: 26px; }
+.promo h2 { font-family: var(--serif); font-weight: 400; font-size: 50px; line-height: 1.25; margin-bottom: 18px; }
+.promo-en { font-family: var(--serif); font-style: italic; font-size: 24px; color: var(--beige); margin-bottom: 14px; }
+.promo-ko { font: 16px/1.7 "Pretendard", sans-serif; color: rgba(255,255,255,.85); margin-bottom: 36px; }
+.promo-cta { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 30px; background: var(--beige); color: var(--green-deep); font: 700 15px "Pretendard", sans-serif; border-radius: 2px; transition: background .2s, transform .2s; }
+.promo-cta:hover { background: #fff; transform: translateY(-2px); }
+.promo-cta span { transition: transform .2s; }
+.promo-cta:hover span { transform: translateX(4px); }
+.promo-visual { position: relative; }
+.promo-visual img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; box-shadow: 0 30px 60px rgba(0,0,0,.35); }
+.promo-badge { position: absolute; left: -44px; bottom: -36px; width: 168px; height: 168px; border-radius: 50%; background: var(--beige); color: var(--green-deep); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: 0 14px 30px rgba(0,0,0,.3); animation: promo-pop 3s ease-in-out infinite; }
+.promo-badge::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; border: 1px dashed rgba(41,71,27,.45); }
+.promo-badge-top { font: 700 12px "Pretendard", sans-serif; letter-spacing: 2px; }
+.promo-badge-num { font: 800 62px/1 "Pretendard", sans-serif; letter-spacing: -2px; }
+.promo-badge-num small { font-size: 28px; font-weight: 800; margin-left: 2px; }
+.promo-badge-bottom { font: 700 12px "Pretendard", sans-serif; letter-spacing: 2px; margin-top: 2px; }
+@keyframes promo-pop { 0%, 100% { transform: rotate(-6deg) scale(1); } 50% { transform: rotate(-6deg) scale(1.05); } }
+@media (prefers-reduced-motion: reduce) { .promo-badge { animation: none; transform: rotate(-6deg); } }
 
 /* ---------- Section head ---------- */
 .sec-head {
@@ -357,6 +373,8 @@ body.drawer-open { overflow: hidden; }
 @media (max-width: 1024px) {
   .products { grid-template-columns: repeat(2, 1fr); }
   .hero { min-height: 1100px; }
+  .promo-inner { gap: 48px; }
+  .promo h2 { font-size: 40px; }
   .pd-top { gap: 36px; }
   .craft-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-copy { margin-top: 160px; }
@@ -375,11 +393,17 @@ body.drawer-open { overflow: hidden; }
 
   .wide img { height: auto; aspect-ratio: 4 / 3; }
 
-  .promo { padding: 48px 16px 52px; }
-  .promo h2 { font-size: 28px; }
-  .promo-en { font-size: 18px; }
-  .promo-ko { font-size: 14px; margin-bottom: 24px; }
-  .promo-off { font-size: 18px; }
+  .promo { padding: 56px 16px 72px; }
+  .promo-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+  .promo-label { margin-bottom: 18px; }
+  .promo h2 { font-size: 30px; }
+  .promo-en { font-size: 17px; }
+  .promo-ko { font-size: 14px; margin-bottom: 26px; }
+  .promo-cta { height: 50px; padding: 0 26px; font-size: 14px; }
+  .promo-badge { left: auto; right: 12px; bottom: -40px; width: 124px; height: 124px; }
+  .promo-badge-num { font-size: 44px; }
+  .promo-badge-num small { font-size: 20px; }
+  .promo-badge-top, .promo-badge-bottom { font-size: 10px; }
 
   .sec-head h2 { font-size: 32px; }
   .sec-head p { font-size: 14px; }

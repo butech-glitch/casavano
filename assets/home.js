@@ -31,6 +31,14 @@ document.querySelectorAll("[data-site]").forEach(el => {
   const v = el.dataset.site.split(".").reduce((o, k) => (o ? o[k] : undefined), SITE);
   if (v) el.textContent = v;
 });
+// 할인 문구에서 숫자(%)를 뽑아 배지에 크게 표시. 숫자가 없으면 문구만 표시
+(() => {
+  const off = (SITE.promo && SITE.promo.off) || "";
+  const m = off.match(/(\d+)\s*%/);
+  const num = document.getElementById("promoNum"), sub = document.getElementById("promoOff");
+  if (m) { num.innerHTML = `${m[1]}<small>%</small>`; sub.textContent = "OFF"; }
+  else { num.hidden = true; document.querySelector(".promo-badge-top").hidden = true; sub.textContent = off; }
+})();
 
 observeReveal();
 });

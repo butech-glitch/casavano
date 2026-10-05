@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="assets/style.css?v=20261005i">
+  <link rel="stylesheet" href="assets/style.css?v=20261005k">
 </head>
 <body>
 
@@ -73,10 +73,23 @@
 
     <!-- Promotion -->
     <section class="promo">
-      <h2 class="reveal" data-site="promo.title">까사바노 2026 특별 프로모션</h2>
-      <p class="promo-en reveal" data-site="promo.en">Limited-Time Savings on Premium Sofas</p>
-      <p class="promo-ko reveal" data-site="promo.ko">까사바노 프리미엄 소파 / 시즌 프로모션을 만나보세요</p>
-      <p class="promo-off reveal" data-site="promo.off">up to 30% Discount</p>
+      <div class="promo-inner">
+        <div class="promo-text reveal">
+          <span class="promo-label">EVENT · 기간 한정</span>
+          <h2 data-site="promo.title">까사바노 2026 특별 프로모션</h2>
+          <p class="promo-en" data-site="promo.en">Limited-Time Savings on Premium Sofas</p>
+          <p class="promo-ko" data-site="promo.ko">까사바노 프리미엄 소파 / 시즌 프로모션을 만나보세요</p>
+          <a class="promo-cta" href="#best">프로모션 상품 보기 <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="promo-visual reveal">
+          <img src="assets/img/og.jpg" alt="까사바노 가죽 소파" loading="lazy">
+          <div class="promo-badge">
+            <span class="promo-badge-top">UP TO</span>
+            <b class="promo-badge-num" id="promoNum">30<small>%</small></b>
+            <span class="promo-badge-bottom" id="promoOff" data-site="promo.off">up to 30% Discount</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Best item -->
@@ -172,6 +185,6 @@
 
   <script src="assets/data.js?v=20261005f"></script>
   <script src="assets/common.js?v=20261005e"></script>
-  <script src="assets/home.js?v=20261005e"></script>
+  <script src="assets/home.js?v=20261005j"></script>
 </body>
 </html>
