@@ -25,6 +25,7 @@ $("pdFeatures").innerHTML = product.features.map(f => `<li>${f}</li>`).join("");
 function renderGallery() {
   const pics = variantImages(product, state.variant);
   const show = src => {
+    $("pdMain").onload = () => fillMargins($("pdMain"));
     $("pdMain").src = src;
     $("pdMain").alt = product.name;
     $("pdThumbs").querySelectorAll("button").forEach(b => b.classList.toggle("is-on", b.dataset.src === src));
@@ -32,6 +33,29 @@ function renderGallery() {
   $("pdThumbs").innerHTML = pics.map(src => `<li><button type="button" data-src="${src}"><img src="${src}" alt="" loading="lazy"></button></li>`).join("");
   $("pdThumbs").querySelectorAll("button").forEach(b => b.addEventListener("click", () => show(b.dataset.src)));
   show(pics[0]);
+}
+
+// 사진 비율이 정사각형이 아니면 원본은 그대로 두고, 남는 여백을 사진 가장자리 색으로 채움
+function fillMargins(img) {
+  const box = img.parentElement;
+  const w = img.naturalWidth, h = img.naturalHeight;
+  if (!w || !h || Math.abs(w - h) < 4) { box.style.background = ""; return; }
+  try {
+    const c = document.createElement("canvas");
+    const k = 64 / Math.max(w, h);
+    c.width = Math.max(1, Math.round(w * k)); c.height = Math.max(1, Math.round(h * k));
+    const ctx = c.getContext("2d", { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0, c.width, c.height);
+    const avg = (x, y, cw, ch) => {
+      const d = ctx.getImageData(x, y, cw, ch).data; let r = 0, g = 0, b = 0, n = 0;
+      for (let i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; n++; }
+      return `rgb(${Math.round(r / n)},${Math.round(g / n)},${Math.round(b / n)})`;
+    };
+    const wide = w > h, t = 2;
+    const a = wide ? avg(0, 0, c.width, t) : avg(0, 0, t, c.height);
+    const z = wide ? avg(0, c.height - t, c.width, t) : avg(c.width - t, 0, t, c.height);
+    box.style.background = `linear-gradient(${wide ? "to bottom" : "to right"}, ${a} 0 50%, ${z} 50% 100%)`;
+  } catch { box.style.background = ""; }
 }
 
 // ---------- Options ----------
