@@ -1,3 +1,10 @@
+/* 숫자(0-9, %)는 사이트 전체에서 Pretendard로 표시 */
+@font-face { font-family: "CasaNum"; font-weight: 400; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2") format("woff2"); unicode-range: U+0030-0039, U+0025; }
+@font-face { font-family: "CasaNum"; font-weight: 500; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Medium.woff2") format("woff2"); unicode-range: U+0030-0039, U+0025; }
+@font-face { font-family: "CasaNum"; font-weight: 600; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-SemiBold.woff2") format("woff2"); unicode-range: U+0030-0039, U+0025; }
+@font-face { font-family: "CasaNum"; font-weight: 700; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Bold.woff2") format("woff2"); unicode-range: U+0030-0039, U+0025; }
+@font-face { font-family: "CasaNum"; font-weight: 800; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-ExtraBold.woff2") format("woff2"); unicode-range: U+0030-0039, U+0025; }
+
 :root {
   --green: #325336;
   --green-deep: #29471b;
@@ -5,8 +12,8 @@
   --cream: #f5eedd;
   --beige: #eae1d2;
   --ink: #363636;
-  --serif: "Playfair Display", "Pretendard", "Apple SD Gothic Neo", serif;
-  --body: "Lora", "Pretendard", "Apple SD Gothic Neo", serif;
+  --serif: "CasaNum", "Playfair Display", "Pretendard", "Apple SD Gothic Neo", serif;
+  --body: "CasaNum", "Lora", "Pretendard", "Apple SD Gothic Neo", serif;
   --header-h: 80px;
 }
 
