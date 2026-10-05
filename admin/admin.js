@@ -150,6 +150,7 @@ const ROUTES = {
   product: { title: "상품 편집", render: renderProductEdit },
   main: { title: "메인 화면", render: renderMain },
   materials: { title: "소재 · 컬러", render: renderMaterials },
+  history: { title: "변경 기록", render: renderHistory },
   help: { title: "도움말", render: renderHelp },
 };
 
@@ -174,6 +175,19 @@ window.addEventListener("beforeunload", e => { if (S.dirty) { e.preventDefault()
 const markDirty = () => { S.dirty = true; };
 
 // ---------- Dashboard ----------
+// 예전 영어 기록을 한글로 표시 (새 기록은 처음부터 한글로 작성)
+const LOG_KO = {
+  "Casavano homepage: static rebuild of casavano.kr": "홈페이지 최초 제작 (casavano.kr 재구성)",
+  "Use casavano.kr custom domain; replace shop links with contact": "casavano.kr 도메인 설정, 쇼핑몰 링크를 연락처로 변경",
+  "Remove CNAME until design is finalized": "디자인 확정 전까지 도메인 연결 보류",
+  "Add product detail pages, cart, Tailored Selection section; remove review": "상품 상세페이지 · 장바구니 · 테일러드 셀렉션 추가, 리뷰 섹션 삭제",
+  "Add terms of service and privacy policy pages": "이용약관 · 개인정보처리방침 페이지 추가",
+  "Add exchange and refund policy page": "교환 · 환불 정책 페이지 추가",
+  "Add share metadata (og/twitter), share image and favicon": "공유 미리보기 정보 · 대표 이미지 · 파비콘 추가",
+  "Add BRAND page migrated from Imweb, sitemap and robots.txt": "BRAND 페이지 이전 (아임웹), 검색엔진용 파일 추가",
+  "Add admin page for products, main screen and materials": "관리자 페이지 추가 (상품 · 메인 화면 · 소재)",
+};
+
 async function renderDashboard() {
   const sale = S.products.filter(p => p.status === "sale").length;
   const hidden = S.products.length - sale;
@@ -193,14 +207,63 @@ async function renderDashboard() {
       </div>
     </div>
     <div class="card">
-      <h2>최근 변경 기록</h2><p class="card-sub">저장 후 사이트 반영까지 1~2분 정도 걸립니다.</p>
+      <h2>최근 변경 기록</h2><p class="card-sub">저장 후 사이트 반영까지 1~2분 정도 걸립니다. 기록을 누르면 그 시점으로 되돌릴 수 있어요.</p>
       <div class="log" id="log"><div class="muted">불러오는 중…</div></div>
     </div>`;
+  renderLog($("#log"), 8);
+}
+
+const logTitle = msg => (m => LOG_KO[m] || m.replace(/^관리자: /, ""))(msg.split("\n")[0]);
+
+async function renderLog(el, perPage) {
   try {
-    const commits = await gh(`/repos/${CFG.owner}/${CFG.repo}/commits?per_page=8&sha=${CFG.branch}`);
-    $("#log").innerHTML = commits.map(c => `
-      <div><span>${esc(c.commit.message.split("\n")[0])}</span><span class="muted">${new Date(c.commit.author.date).toLocaleString("ko-KR")}</span></div>`).join("");
-  } catch { $("#log").innerHTML = `<div class="muted">기록을 불러오지 못했습니다.</div>`; }
+    const commits = await gh(`/repos/${CFG.owner}/${CFG.repo}/commits?per_page=${perPage}&sha=${CFG.branch}`);
+    el.innerHTML = commits.map((c, i) => {
+      const when = new Date(c.commit.author.date).toLocaleString("ko-KR");
+      return i === 0
+        ? `<div class="log-row is-current"><span><span class="badge badge-sale">현재</span> ${esc(logTitle(c.commit.message))}</span><span class="muted">${when}</span></div>`
+        : `<button type="button" class="log-row" data-restore="${c.sha}" data-when="${esc(when)}" title="눌러서 이 시점으로 되돌리기">
+             <span>${esc(logTitle(c.commit.message))}</span>
+             <span class="log-right"><span class="muted">${when}</span><span class="log-go">이 시점으로 ↺</span></span>
+           </button>`;
+    }).join("");
+    el.querySelectorAll("[data-restore]").forEach(b => b.addEventListener("click", () => restoreTo(b.dataset.restore, b.dataset.when)));
+  } catch { el.innerHTML = `<div class="muted">기록을 불러오지 못했습니다.</div>`; }
+}
+
+// ---------- History / restore ----------
+function renderHistory() {
+  $("#view").innerHTML = `
+    <div class="notice">기록을 누르면 <b>상품 · 메인 화면 · 소재/컬러</b>가 그 시점의 내용으로 돌아갑니다.
+      되돌린 것도 새 기록으로 남기 때문에, 잘못 되돌렸으면 다시 원래 시점으로 되돌릴 수 있어요.<br>
+      디자인 · 페이지 구성 · 약관 같은 코드 변경은 여기서 되돌리지 않습니다.</div>
+    <div class="card">
+      <h2>변경 기록</h2><p class="card-sub">최근 30개 기록입니다.</p>
+      <div class="log" id="histLog"><div class="muted">불러오는 중…</div></div>
+    </div>`;
+  renderLog($("#histLog"), 30);
+}
+
+async function restoreTo(sha, when) {
+  if (!confirm(`상품 · 메인 화면 · 소재 정보를 ${when} 상태로 되돌릴까요?`)) return;
+  busy(true, "되돌리는 중…");
+  try {
+    const at = async path => {
+      try { return b64ToUtf8((await gh(`${contentsPath(path)}?ref=${sha}`)).content); }
+      catch (e) { if (e.status === 404) return null; throw e; }
+    };
+    const [oldP, oldS] = await Promise.all([at(PATHS.products), at(PATHS.site)]);
+    if (!oldP && !oldS) throw new Error("이 시점에는 관리자 데이터가 없어서 되돌릴 수 없습니다.");
+    await loadData();
+    let changed = 0;
+    const label = `관리자: ${when} 상태로 되돌리기`;
+    const same = (a, b) => JSON.stringify(JSON.parse(a)) === JSON.stringify(b);
+    if (oldP && !same(oldP, S.products)) { S.products = JSON.parse(oldP); await saveProducts(label); changed++; }
+    if (oldS && !same(oldS, S.site)) { S.site = JSON.parse(oldS); await saveSite(label); changed++; }
+    toast(changed ? "되돌렸습니다. 1~2분 후 사이트에 반영됩니다." : "이미 그 시점과 같은 상태입니다.");
+    route();
+  } catch (e) { toast(e.message, true); await loadData().catch(() => {}); }
+  finally { busy(false); }
 }
 
 // ---------- Product list ----------

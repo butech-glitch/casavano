@@ -72,8 +72,14 @@ input, select, textarea { font: inherit; color: inherit; }
 .quick a:hover { border-color: var(--green); }
 .quick b { display: block; margin-bottom: 4px; }
 .log { display: grid; gap: 0; }
-.log div { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f1f2f4; font-size: 13px; }
-.log div:last-child { border-bottom: 0; }
+.log-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; padding: 12px 10px; border-bottom: 1px solid #f1f2f4; font-size: 13px; text-align: left; border-radius: 8px; }
+.log-row:last-child { border-bottom: 0; }
+button.log-row:hover { background: var(--green-weak); }
+.log-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.log-go { color: var(--green); font-weight: 600; opacity: 0; transition: opacity .15s; }
+button.log-row:hover .log-go { opacity: 1; }
+.log-row.is-current .badge { margin-right: 4px; }
+@media (hover: none) { .log-go { opacity: 1; } }
 
 /* Table */
 .table-wrap { overflow-x: auto; }
