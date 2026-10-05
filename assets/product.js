@@ -41,8 +41,11 @@ function fillMargins(img) {
   const w = img.naturalWidth, h = img.naturalHeight;
   img.style.objectFit = ""; img.style.objectPosition = "";
   if (!w || !h || Math.abs(w - h) < 4) { box.style.background = ""; return; }
-  // 세로 사진(소파가 좌우로 잘려 찍힌 사진)은 가로 100%로 채우고 위아래(천장·바닥)만 살짝 잘라냄
-  if (h > w) { img.style.objectFit = "cover"; img.style.objectPosition = "center 60%"; box.style.background = ""; return; }
+  // 관리자에서 사진별로 정한 방식(꽉 채우기/전체 보기)이 있으면 우선, 없으면
+  // 세로 사진은 가로 100%로 채우고(위아래만 살짝 잘림), 가로 사진은 전체 보기
+  const set = (product.fit || {})[img.getAttribute("src").split("?")[0]];
+  const cover = set ? set === "cover" : h > w;
+  if (cover) { img.style.objectFit = "cover"; img.style.objectPosition = h > w ? "center 60%" : "center"; box.style.background = ""; return; }
   try {
     const c = document.createElement("canvas");
     const k = 64 / Math.max(w, h);

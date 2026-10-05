@@ -333,15 +333,25 @@ function imageManager(el, list, folder, opts = {}) {
             <button type="button" data-a="right" data-i="${i}" title="뒤로">→</button>
             <button type="button" class="del" data-a="del" data-i="${i}" title="삭제">✕</button>
           </div>
+          ${opts.fit ? `<select class="img-fit" data-fit="${i}" title="상세페이지 사진 칸에 보이는 방식">
+            <option value="" ${!opts.fit[src] ? "selected" : ""}>자동</option>
+            <option value="cover" ${opts.fit[src] === "cover" ? "selected" : ""}>꽉 채우기</option>
+            <option value="contain" ${opts.fit[src] === "contain" ? "selected" : ""}>전체 보기</option>
+          </select>` : ""}
         </div>`).join("")}
       <label class="img-add">＋ 사진 추가<br><span style="font-size:11px">여러 장 선택 가능</span><input type="file" accept="image/*" multiple></label>
     </div>`;
     el.querySelectorAll("[data-a]").forEach(b => b.addEventListener("click", () => {
       const i = +b.dataset.i;
-      if (b.dataset.a === "del") list.splice(i, 1);
+      if (b.dataset.a === "del") { if (opts.fit) delete opts.fit[list[i]]; list.splice(i, 1); }
       if (b.dataset.a === "left" && i > 0) [list[i - 1], list[i]] = [list[i], list[i - 1]];
       if (b.dataset.a === "right" && i < list.length - 1) [list[i + 1], list[i]] = [list[i], list[i + 1]];
       markDirty(); draw(); opts.onChange?.();
+    }));
+    el.querySelectorAll("[data-fit]").forEach(sel => sel.addEventListener("change", () => {
+      const src = list[+sel.dataset.fit];
+      if (sel.value) opts.fit[src] = sel.value; else delete opts.fit[src];
+      markDirty();
     }));
     el.querySelector("input[type=file]").addEventListener("change", async e => {
       const files = [...e.target.files];
@@ -408,7 +418,8 @@ function renderProductEdit(id) {
       </div>
 
       <div class="card">
-        <h2>상품 사진</h2><p class="card-sub">첫 번째 사진이 대표 사진입니다. 두 번째 사진은 목록에서 마우스를 올렸을 때 보입니다.</p>
+        <h2>상품 사진</h2><p class="card-sub">첫 번째 사진이 대표 사진입니다. 두 번째 사진은 목록에서 마우스를 올렸을 때 보입니다.<br>
+        사진 아래 선택: <b>자동</b>(세로 사진은 꽉 채우기, 가로 사진은 전체 보기) · <b>꽉 채우기</b>(사진 칸을 꽉 채움, 가장자리 잘림) · <b>전체 보기</b>(원본 전체 + 어울리는 여백 색)</p>
         <div id="imgMgr"></div>
       </div>
 
@@ -436,7 +447,8 @@ function renderProductEdit(id) {
     </form>`;
 
   const folder = () => `products/${p.id || "uploads"}`;
-  imageManager($("#imgMgr"), p.images, folder(), { mainLabel: "대표", onChange: drawVariants });
+  p.fit = p.fit || {};
+  imageManager($("#imgMgr"), p.images, folder(), { mainLabel: "대표", onChange: drawVariants, fit: p.fit });
   imageManager($("#longMgr"), p.long, `long`, { tall: true });
 
   function drawVariants() {
@@ -523,6 +535,8 @@ function renderProductEdit(id) {
     p.features = String(fd.get("features")).split("\n").map(s => s.trim()).filter(Boolean);
     p.baseMaterial = fd.get("baseMaterial");
     if (!p.images.length) return toast("상품 사진을 1장 이상 올려 주세요.", true);
+    Object.keys(p.fit || {}).forEach(k => { if (!p.images.includes(k)) delete p.fit[k]; });
+    if (p.fit && !Object.keys(p.fit).length) delete p.fit;
     if (p.variants.some(v => !v.label.trim())) return toast("사이즈 이름을 모두 입력해 주세요.", true);
     if (p.variants.some(v => !(v.price > 0))) return toast("판매가를 모두 입력해 주세요.", true);
     if (p.variants.some(v => v.listPrice && v.listPrice <= v.price)) return toast("정가는 판매가보다 커야 합니다. 할인이 없으면 정가를 비워 두세요.", true);

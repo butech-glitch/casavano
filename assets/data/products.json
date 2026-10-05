@@ -75,7 +75,10 @@
           "assets/img/products/premi-corner/1.webp"
         ]
       }
-    ]
+    ],
+    "fit": {
+      "assets/img/products/premi/9.webp": "cover"
+    }
   },
   {
     "id": "mare",
@@ -199,7 +202,11 @@
         "size": "W3200 × D1150 × H950 (방석 깊이 600~870)",
         "set": "기본 구성"
       }
-    ]
+    ],
+    "fit": {
+      "assets/img/products/winne/1.webp": "cover",
+      "assets/img/products/winne/4.webp": "cover"
+    }
   },
   {
     "id": "green",
@@ -240,6 +247,9 @@
         "size": "상세 이미지 참고",
         "set": "코너 모듈 1개"
       }
-    ]
+    ],
+    "fit": {
+      "assets/img/products/green/7.webp": "cover"
+    }
   }
 ]
