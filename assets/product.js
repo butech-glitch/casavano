@@ -35,11 +35,14 @@ function renderGallery() {
   show(pics[0]);
 }
 
-// 사진 비율이 정사각형이 아니면 원본은 그대로 두고, 남는 여백을 사진 가장자리 색으로 채움
+// 가로 사진은 원본을 그대로 보여주고 남는 여백을 사진 가장자리 색으로 채움
 function fillMargins(img) {
   const box = img.parentElement;
   const w = img.naturalWidth, h = img.naturalHeight;
+  img.style.objectFit = ""; img.style.objectPosition = "";
   if (!w || !h || Math.abs(w - h) < 4) { box.style.background = ""; return; }
+  // 세로 사진(소파가 좌우로 잘려 찍힌 사진)은 가로 100%로 채우고 위아래(천장·바닥)만 살짝 잘라냄
+  if (h > w) { img.style.objectFit = "cover"; img.style.objectPosition = "center 60%"; box.style.background = ""; return; }
   try {
     const c = document.createElement("canvas");
     const k = 64 / Math.max(w, h);
