@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /cart.html
+Disallow: /admin/
 
 Sitemap: https://casavano.kr/sitemap.xml

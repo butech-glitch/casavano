@@ -1,8 +1,10 @@
 // Main page: BEST ITEM grid + material swatches
+DATA_READY.then(() => {
+
 const list = document.getElementById("products");
 list.innerHTML = BEST_ITEMS.map(item => {
   const p = findProduct(item.id);
-  const v = p.variants.find(x => x.key === item.variant);
+  const v = p.variants.find(x => x.key === item.variant) || p.variants[0];
   const pics = variantImages(p, v);
   const hover = pics[item.hover];
   return `
@@ -24,4 +26,11 @@ document.querySelectorAll("[data-swatches]").forEach(el => {
     .map(c => `<li><span style="background:${c.hex}"></span>${c.name}<small>${c.en}</small></li>`).join("");
 });
 
+// Promotion text from site.json
+document.querySelectorAll("[data-site]").forEach(el => {
+  const v = el.dataset.site.split(".").reduce((o, k) => (o ? o[k] : undefined), SITE);
+  if (v) el.textContent = v;
+});
+
 observeReveal();
+});

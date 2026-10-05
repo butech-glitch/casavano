@@ -1,0 +1,109 @@
+{
+  "promo": {
+    "title": "까사바노 2026 특별 프로모션",
+    "en": "Limited-Time Savings on Premium Sofas",
+    "ko": "까사바노 프리미엄 소파 / 시즌 프로모션을 만나보세요",
+    "off": "up to 30% Discount"
+  },
+  "info": {
+    "leadTime": "주문 후 약 2주 (주문 제작)",
+    "delivery": "배송비 포함 · 설치 포함"
+  },
+  "best": [
+    {
+      "id": "mare",
+      "variant": "corner",
+      "hover": 1
+    },
+    {
+      "id": "premi",
+      "variant": "4",
+      "hover": 1
+    },
+    {
+      "id": "premi",
+      "variant": "3",
+      "hover": 1,
+      "title": "[프리미] 이태리 천연면피 가죽 3인 소파"
+    },
+    {
+      "id": "nana",
+      "variant": "corner",
+      "hover": 2
+    },
+    {
+      "id": "winne",
+      "variant": "4",
+      "hover": 1
+    },
+    {
+      "id": "green",
+      "variant": "corner",
+      "hover": 1
+    }
+  ],
+  "materials": {
+    "leather": {
+      "label": "레더 (Leather)",
+      "desc": "이태리 천연면피 가죽 — 시간이 지날수록 깊어지는 고급스러움",
+      "colors": [
+        {
+          "name": "화이트",
+          "en": "White",
+          "hex": "#ebe4d6"
+        },
+        {
+          "name": "버본",
+          "en": "Bourbon",
+          "hex": "#b8682c"
+        },
+        {
+          "name": "오키",
+          "en": "Oky",
+          "hex": "#9a5a2e"
+        },
+        {
+          "name": "블랙",
+          "en": "Black",
+          "hex": "#2c2624"
+        }
+      ]
+    },
+    "fabric": {
+      "label": "패브릭 (Fabric)",
+      "desc": "프리미엄 패브릭 — 부드럽고 편안한 일상의 안락함",
+      "colors": [
+        {
+          "name": "베이지",
+          "en": "Beige",
+          "hex": "#cfc5b2"
+        },
+        {
+          "name": "라이트그레이",
+          "en": "Light Grey",
+          "hex": "#adacaa"
+        },
+        {
+          "name": "애쉬",
+          "en": "Ash",
+          "hex": "#4b4c4f"
+        },
+        {
+          "name": "워터그린",
+          "en": "Water Green",
+          "hex": "#9db3ae"
+        },
+        {
+          "name": "페트롤",
+          "en": "Petrol",
+          "hex": "#21506b"
+        },
+        {
+          "name": "옐로우",
+          "en": "Yellow",
+          "hex": "#c99b3d"
+        }
+      ]
+    }
+  }
+}

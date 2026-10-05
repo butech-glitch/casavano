@@ -1,4 +1,6 @@
 // Product detail page — product.html?id=premi&v=4
+DATA_READY.then(() => {
+
 const params = new URLSearchParams(location.search);
 const product = findProduct(params.get("id")) || PRODUCTS[0];
 const state = {
@@ -117,3 +119,4 @@ document.querySelectorAll(".pd-section").forEach(s => tabObserver.observe(s));
 
 renderGallery();
 render();
+});
