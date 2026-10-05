@@ -42,9 +42,8 @@ button { background: none; border: 0; cursor: pointer; font: inherit; color: inh
 .logo--green { opacity: 0; }
 .header.is-scrolled .logo--light, body.solid .logo--light { opacity: 0; }
 .header.is-scrolled .logo--green, body.solid .logo--green { opacity: 1; }
-.util { justify-self: end; display: flex; gap: 26px; font: 500 13px "Pretendard", sans-serif; letter-spacing: 1.5px; text-transform: uppercase; }
-.util a { color: var(--cream); transition: opacity .2s, color .35s; }
-.header.is-scrolled .util a, body.solid .util a { color: var(--green); }
+.util { justify-self: end; display: flex; gap: 28px; font-size: 16px; }
+.util a { color: var(--sage); transition: opacity .2s; }
 .util a:hover { opacity: .7; }
 
 /* ---------- Drawer ---------- */
@@ -73,10 +72,9 @@ body.drawer-open { overflow: hidden; }
   padding: 118px 4vw 0; color: var(--cream); text-align: center;
 }
 .hero-logo { width: min(1526px, 100%); }
-.hero-copy { margin-top: 200px; }
-.hero-copy h2 { font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 30px; letter-spacing: .5px; margin-bottom: 18px; }
-.hero-copy p { font-family: "Pretendard", sans-serif; font-size: 17px; line-height: 1.9; color: rgba(245,238,221,.92); }
-.hero-copy::after { content: ""; display: block; width: 1px; height: 64px; margin: 40px auto 0; background: linear-gradient(var(--cream), transparent); opacity: .7; }
+.hero-copy { margin-top: 220px; }
+.hero-copy h2 { font-family: var(--serif); font-weight: 400; font-size: 22px; margin-bottom: 14px; }
+.hero-copy p { font-family: "Pretendard", sans-serif; font-size: 15px; line-height: 1.9; }
 
 /* ---------- Wide image ---------- */
 .wide img { width: 100%; height: 673px; object-fit: cover; }
@@ -126,43 +124,34 @@ body.drawer-open { overflow: hidden; }
 .thumb .hover { opacity: 0; }
 .product a:hover .thumb .hover { opacity: 1; }
 .product a:hover .thumb img { transform: scale(1.03); }
-.p-name { margin-top: 18px; font: 500 16px/1.5 "Pretendard", sans-serif; color: #222; }
-.p-name small { color: #999; font-size: .82em; font-weight: 400; margin-left: 2px; }
-.p-price { margin-top: 6px; font-size: 16px; }
-.p-badge { display: inline-block; margin-top: 10px; padding: 4px 9px; border: 1px solid var(--green); font: 600 10.5px/1 "Pretendard", sans-serif; letter-spacing: 1.5px; color: var(--green); background: transparent; }
+.p-name { margin-top: 20px; font-size: 16px; color: var(--ink); line-height: 1.5; }
+.p-name small { color: #888; font-size: .85em; }
+.p-price { margin-top: 6px; font-size: 15px; }
+.p-badge {
+  display: inline-block; margin-top: 10px; padding: 3px 9px;
+  font-family: "Pretendard", sans-serif; font-size: 11px; letter-spacing: 1px;
+  color: #fff; background: var(--green);
+}
 
 /* ---------- About ---------- */
 .about {
-  position: relative; min-height: 480px; display: flex; align-items: center;
-  background: linear-gradient(90deg, rgba(20,24,18,.78) 0%, rgba(20,24,18,.55) 45%, rgba(20,24,18,.2) 100%), url("img/about-bg.jpg") center / cover fixed no-repeat;
+  position: relative; min-height: 432px; display: flex; align-items: center;
+  background: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)), url("img/about-bg.jpg") center / cover fixed no-repeat;
   color: #fff;
 }
 .about-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 60px 48px; display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: center; }
 .about h2 { font-family: var(--serif); font-weight: 400; font-size: 48px; line-height: 1.35; }
-.about-text p { font-family: "Pretendard", sans-serif; font-size: 16px; line-height: 1.95; color: rgba(255,255,255,.9); }
+.about-text p { font-family: "Pretendard", sans-serif; font-size: 15px; line-height: 1.9; }
 .about-text p + p { margin-top: 18px; }
 
 /* ---------- Footer ---------- */
-.footer { background: #f6f3ec; color: #555; font: 13px/1.8 "Pretendard", sans-serif; padding: 72px 32px 40px; }
-.f-wrap { max-width: 1200px; margin: 0 auto; }
-.f-top { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-bottom: 28px; border-bottom: 1px solid #e3ddd1; }
-.f-logo img { height: 18px; }
-.f-nav { display: flex; flex-wrap: wrap; gap: 28px; font-weight: 600; font-size: 12px; letter-spacing: 1.5px; color: var(--green); }
-.f-nav a:hover { opacity: .7; }
-.f-body { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; padding: 36px 0; }
-.f-h { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #999; margin-bottom: 10px; }
-.f-tel { display: block; font: 700 26px/1.3 "Pretendard", sans-serif; color: var(--green); }
-.f-mail { display: block; margin-top: 4px; color: #444; }
-.f-note { margin-top: 10px; color: #888; font-size: 12.5px; }
-.f-info { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 28px; align-content: start; }
-.f-info div { display: flex; gap: 12px; }
-.f-info .f-wide { grid-column: 1 / -1; }
-.f-info dt { flex-shrink: 0; width: 118px; color: #999; }
-.f-info dd { color: #444; }
-.f-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 22px; border-top: 1px solid #e3ddd1; }
-.f-links { display: flex; gap: 20px; color: #444; }
-.f-links a:hover { color: var(--green); }
-.f-copy { color: #aaa; font-size: 12px; letter-spacing: .5px; }
+.footer { padding: 70px 20px 80px; border-top: 1px solid #eee; text-align: center; color: var(--green); font-size: 14px; line-height: 1.9; }
+.f-brand { color: var(--ink); font-size: 15px; margin-bottom: 26px; }
+.f-info div { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 10px; }
+.f-info dt { font-weight: 700; }
+.f-info dt.sep { margin-left: 4px; }
+.f-info dd a + a { margin-left: 8px; }
+.f-links { margin-top: 30px; display: flex; justify-content: center; gap: 22px; color: #3b3b3b; }
 
 /* ---------- Cart badge ---------- */
 .cart-link { position: relative; }
@@ -406,6 +395,8 @@ body.drawer-open { overflow: hidden; }
 
   .hero { min-height: 100svh; padding-top: 96px; background-image: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), url("img/hero-bg-m.jpg"); }
   .hero-copy { margin-top: auto; margin-bottom: 18vh; }
+  .hero-copy h2 { font-size: 20px; }
+  .hero-copy p { font-size: 13px; }
 
   .wide img { height: auto; aspect-ratio: 4 / 3; }
 
@@ -433,21 +424,10 @@ body.drawer-open { overflow: hidden; }
   .about { background-attachment: scroll; }
   .about-inner { grid-template-columns: 1fr; gap: 24px; padding: 64px 16px; text-align: center; }
   .about h2 { font-size: 32px; }
-  .about-text p { font-size: 14px; }
-  .about { background: linear-gradient(rgba(20,24,18,.65), rgba(20,24,18,.65)), url("img/about-bg.jpg") center / cover no-repeat; }
+  .about-text p { font-size: 13px; }
   .about-text br { display: none; }
 
-  .footer { font-size: 12.5px; padding: 48px 16px 32px; }
-  .f-top { flex-direction: column; align-items: flex-start; gap: 18px; }
-  .f-nav { gap: 16px 20px; }
-  .f-body { grid-template-columns: 1fr; gap: 28px; padding: 28px 0; }
-  .f-info { grid-template-columns: 1fr; }
-  .f-info dt { width: 112px; }
-  .f-bottom { flex-direction: column; align-items: flex-start; }
-  .util { letter-spacing: 1px; font-size: 12px; }
-  .util a[href="#contact"] { display: none; }
-  .hero-copy h2 { font-size: 22px; }
-  .hero-copy p { font-size: 14px; }
+  .footer { font-size: 12px; padding: 50px 16px 60px; }
 
   .tailored { padding: 72px 0 80px; }
   .steps { grid-template-columns: 1fr; padding: 0 16px; margin-top: 40px; gap: 12px; }
