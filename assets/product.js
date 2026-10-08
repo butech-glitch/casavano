@@ -35,19 +35,59 @@ $("pdStoryTitle").textContent = product.tagline;
 $("pdDesc").textContent = product.description;
 $("pdFeatures").innerHTML = product.features.map(f => `<li>${f}</li>`).join("");
 
-// ---------- Gallery ----------
-function renderGallery() {
-  const pics = variantImages(product, state.variant);
-  const show = src => {
-    $("pdMain").onload = () => fillMargins($("pdMain"));
-    $("pdMain").src = src;
-    $("pdMain").alt = product.name;
-    $("pdThumbs").querySelectorAll("button").forEach(b => b.classList.toggle("is-on", b.dataset.src === src));
+// ---------- Gallery (자동 롤링) ----------
+const gallery = { pics: [], i: 0, timer: null, paused: false };
+const ROLL_MS = 3500;
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function showPic(i, user) {
+  const pics = gallery.pics;
+  if (!pics.length) return;
+  gallery.i = (i + pics.length) % pics.length;
+  const src = pics[gallery.i];
+  const img = $("pdMain");
+  img.classList.add("is-fading");
+  const swap = () => {
+    img.onload = () => { fillMargins(img); img.classList.remove("is-fading"); };
+    img.src = src;
+    img.alt = product.name;
+    if (img.complete && img.naturalWidth) img.onload();
   };
-  $("pdThumbs").innerHTML = pics.map(src => `<li><button type="button" data-src="${src}"><img src="${src}" alt="" loading="lazy"></button></li>`).join("");
-  $("pdThumbs").querySelectorAll("button").forEach(b => b.addEventListener("click", () => show(b.dataset.src)));
-  show(pics[0]);
+  img.getAttribute("src") ? setTimeout(swap, 180) : swap();
+  $("pdThumbs").querySelectorAll("button").forEach((b, n) => b.classList.toggle("is-on", n === gallery.i));
+  $("pdCount").textContent = pics.length > 1 ? `${gallery.i + 1} / ${pics.length}` : "";
+  if (user) restartRoll();
 }
+
+function restartRoll() {
+  clearInterval(gallery.timer);
+  if (reduceMotion || gallery.pics.length < 2) return;
+  gallery.timer = setInterval(() => { if (!gallery.paused && !document.hidden) showPic(gallery.i + 1); }, ROLL_MS);
+}
+
+function renderGallery() {
+  gallery.pics = variantImages(product, state.variant);
+  $("pdThumbs").innerHTML = gallery.pics.map(src => `<li><button type="button"><img src="${src}" alt="" loading="lazy"></button></li>`).join("");
+  $("pdThumbs").querySelectorAll("button").forEach((b, n) => b.addEventListener("click", () => showPic(n, true)));
+  const multi = gallery.pics.length > 1;
+  $("pdPrev").hidden = $("pdNext").hidden = !multi;
+  showPic(0);
+  restartRoll();
+}
+$("pdPrev").addEventListener("click", () => showPic(gallery.i - 1, true));
+$("pdNext").addEventListener("click", () => showPic(gallery.i + 1, true));
+$("pdMainBox").addEventListener("mouseenter", () => (gallery.paused = true));
+$("pdMainBox").addEventListener("mouseleave", () => (gallery.paused = false));
+// 휴대폰: 좌우로 밀어서 넘기기
+(() => {
+  let x0 = null;
+  $("pdMainBox").addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+  $("pdMainBox").addEventListener("touchend", e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) showPic(gallery.i + (dx < 0 ? 1 : -1), true);
+  });
+})();
 
 // 가로 사진은 원본을 그대로 보여주고 남는 여백을 사진 가장자리 색으로 채움
 function fillMargins(img) {
