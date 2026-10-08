@@ -222,8 +222,12 @@ body.drawer-open { overflow: hidden; }
 .pd-gallery { position: sticky; top: calc(var(--header-h) + 24px); }
 .pd-main { aspect-ratio: 1 / 1; background: #f3f0ea; overflow: hidden; }
 .pd-main { position: relative; transition: background .3s; }
-.pd-main img { transition: opacity .25s ease; }
-.pd-main img.is-fading { opacity: 0; }
+.pd-layer { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; }
+.pd-layer.is-on { opacity: 1; z-index: 1; }
+.pd-layer img { transform: scale(1.015); transition: transform 4.5s ease-out; }
+.pd-layer.is-on img { transform: scale(1); }
+.pd-nav, .pd-count { z-index: 2; }
+@media (prefers-reduced-motion: reduce) { .pd-layer, .pd-layer img { transition: none; transform: none; } }
 .pd-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.85); color: #333; font-size: 26px; line-height: 1; display: grid; place-items: center; opacity: 0; transition: opacity .2s, background .2s; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
 .pd-prev { left: 14px; } .pd-next { right: 14px; }
 .pd-main:hover .pd-nav, .pd-nav:focus-visible { opacity: 1; }

@@ -37,25 +37,42 @@ $("pdFeatures").innerHTML = product.features.map(f => `<li>${f}</li>`).join("");
 
 // ---------- Gallery (자동 롤링) ----------
 const gallery = { pics: [], i: 0, timer: null, paused: false };
-const ROLL_MS = 3500;
+const ROLL_MS = 4000;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// 두 장을 겹쳐 두고, 다음 사진이 다 불러와지면 위로 서서히 겹쳐 보이게(크로스페이드)
+let showToken = 0;
 function showPic(i, user) {
   const pics = gallery.pics;
   if (!pics.length) return;
   gallery.i = (i + pics.length) % pics.length;
   const src = pics[gallery.i];
-  const img = $("pdMain");
-  img.classList.add("is-fading");
-  const swap = () => {
-    img.onload = () => { fillMargins(img); img.classList.remove("is-fading"); };
-    img.src = src;
-    img.alt = product.name;
-    if (img.complete && img.naturalWidth) img.onload();
+  const layers = [...$("pdMainBox").querySelectorAll(".pd-layer")];
+  const cur = layers.find(l => l.classList.contains("is-on")) || layers[0];
+  const next = layers.find(l => l !== cur);
+  const curImg = cur.querySelector("img");
+  const token = ++showToken;
+  const reveal = (layer) => {
+    if (token !== showToken) return;
+    fillMargins(layer.querySelector("img"));
+    layers.forEach(l => l.classList.toggle("is-on", l === layer));
+    layers.forEach(l => l.querySelector("img").removeAttribute("id"));
+    layer.querySelector("img").id = "pdMain";
   };
-  img.getAttribute("src") ? setTimeout(swap, 180) : swap();
+  if (!curImg.getAttribute("src")) {           // 첫 사진은 바로 표시
+    curImg.onload = () => reveal(cur);
+    curImg.src = src; curImg.alt = product.name;
+    if (curImg.complete && curImg.naturalWidth) reveal(cur);
+  } else if (curImg.getAttribute("src") !== src) {
+    const img = next.querySelector("img");
+    img.onload = () => reveal(next);
+    img.src = src; img.alt = product.name;
+    if (img.complete && img.naturalWidth) reveal(next);
+  }
   $("pdThumbs").querySelectorAll("button").forEach((b, n) => b.classList.toggle("is-on", n === gallery.i));
   $("pdCount").textContent = pics.length > 1 ? `${gallery.i + 1} / ${pics.length}` : "";
+  // 다음 사진 미리 불러오기
+  if (pics.length > 1) { const pre = new Image(); pre.src = pics[(gallery.i + 1) % pics.length]; }
   if (user) restartRoll();
 }
 
