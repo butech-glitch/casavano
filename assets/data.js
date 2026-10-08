@@ -20,6 +20,7 @@ const DATA_READY = (async () => {
   products.forEach(p => {
     p.images = withV(p.images);
     p.long = withV(p.long);
+    if (p.thumb) p.thumb = withV([p.thumb])[0];
     p.variants.forEach(v => { if (v.images) v.images = withV(v.images); });
   });
   PRODUCTS = products;

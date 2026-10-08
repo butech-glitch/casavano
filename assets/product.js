@@ -123,7 +123,7 @@ function renderModules() {
     <ul class="mods">
       ${modules.map(m => { const v = modVariant(m); return `
       <li class="mod${m.id === product.id ? " is-current" : ""}">
-        <a class="mod-thumb" href="product.html?id=${m.id}"><img src="${m.images[0]}" alt=""></a>
+        <a class="mod-thumb" href="product.html?id=${m.id}"><img src="${m.thumb || m.images[0]}" alt=""></a>
         <div class="mod-info">
           <a class="mod-name" href="product.html?id=${m.id}">${m.name}</a>
           <span class="mod-meta">${v.size}</span>
@@ -187,7 +187,7 @@ const currentItem = () => ({
 // 모듈 소파는 선택한 모듈마다 한 줄씩 담음 (소재·컬러는 같게)
 const orderItems = () => !moduleSet ? [currentItem()] : modules.filter(m => state.mods[m.id] > 0).map(m => {
   const v = modVariant(m);
-  return { ...currentItem(), id: m.id, name: m.name, variant: v.key, variantLabel: v.label, price: v.price, qty: state.mods[m.id], image: m.images[0] };
+  return { ...currentItem(), id: m.id, name: m.name, variant: v.key, variantLabel: v.label, price: v.price, qty: state.mods[m.id], image: m.thumb || m.images[0] };
 });
 
 $("addCart").addEventListener("click", () => {
