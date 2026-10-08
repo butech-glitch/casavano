@@ -117,7 +117,23 @@
       ],
       "presets": [
         {
+          "label": "3인용",
+          "desc": "코너 2",
+          "qty": {
+            "green": 2,
+            "premi-gois": 0
+          }
+        },
+        {
           "label": "4인용",
+          "desc": "코너 2 + 고이스 1",
+          "qty": {
+            "green": 2,
+            "premi-gois": 1
+          }
+        },
+        {
+          "label": "6인용",
           "desc": "코너 2 + 고이스 2",
           "qty": {
             "green": 2,
