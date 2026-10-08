@@ -9,12 +9,13 @@ let SITE = {};
 let MATERIALS = {};
 let COMMON_INFO = {};
 let BEST_ITEMS = [];
+const IMG_V_PARAM = "v=20261008c";
 
 const DATA_READY = (async () => {
   const get = path => fetch(path, { cache: "no-cache" }).then(r => r.json());
   const [products, site] = await Promise.all([get("assets/data/products.json"), get("assets/data/site.json")]);
   // 이미지를 같은 이름으로 교체해도 바로 보이도록 버전 번호를 붙임
-  const IMG_V = "v=20261005f";
+  const IMG_V = IMG_V_PARAM;
   const withV = list => (list || []).map(s => (s.includes("?") ? s : `${s}?${IMG_V}`));
   products.forEach(p => {
     p.images = withV(p.images);

@@ -27,6 +27,14 @@
       "title": "[프리미] 이태리 천연면피 가죽 3인 소파"
     },
     {
+      "id": "green",
+      "variant": "corner",
+      "preset": "4인용",
+      "title": "[프리미] 모듈소파 4인용",
+      "image": "assets/img/products/green/6.webp",
+      "hover": 1
+    },
+    {
       "id": "nana",
       "variant": "corner",
       "hover": 2
@@ -110,18 +118,18 @@
     {
       "id": "premi-module",
       "title": "모듈 구성",
-      "desc": "코너 모듈과 고이스를 원하는 개수만큼 골라 소파를 완성하세요.",
+      "desc": "코너 모듈과 고이스, 스툴을 원하는 개수만큼 골라 소파를 완성하세요.",
       "items": [
         "green",
-        "premi-gois"
+        "premi-gois",
+        "premi-stool"
       ],
       "presets": [
         {
           "label": "3인용",
           "desc": "코너 2",
           "qty": {
-            "green": 2,
-            "premi-gois": 0
+            "green": 2
           }
         },
         {
@@ -130,6 +138,15 @@
           "qty": {
             "green": 2,
             "premi-gois": 1
+          }
+        },
+        {
+          "label": "4인용 + 스툴",
+          "desc": "코너 2 + 고이스 1 + 스툴 1",
+          "qty": {
+            "green": 2,
+            "premi-gois": 1,
+            "premi-stool": 1
           }
         },
         {

@@ -14,8 +14,14 @@ const state = {
 const moduleSet = (SITE.moduleSets || []).find(m => m.items.includes(product.id));
 const modules = moduleSet ? moduleSet.items.map(findProduct).filter(p => p && p.status === "sale") : [];
 const modVariant = p => p.variants.find(v => v.key === p.defaultVariant) || p.variants[0];
+// 판매중인 모듈만으로 만들 수 있는 빠른 선택만 보여줌 (예: 스툴이 숨김이면 '4인용 + 스툴' 숨김)
+const presets = moduleSet ? (moduleSet.presets || []).filter(pr =>
+  Object.entries(pr.qty).every(([id, n]) => !n || modules.some(m => m.id === id))) : [];
+const applyPreset = pr => modules.forEach(m => (state.mods[m.id] = pr.qty[m.id] || 0));
 if (moduleSet) {
   state.mods = Object.fromEntries(modules.map(m => [m.id, m.id === product.id ? 1 : 0]));
+  const pick = presets.find(pr => pr.label === params.get("preset"));
+  if (pick) applyPreset(pick);
 }
 
 const $ = id => document.getElementById(id);
@@ -110,8 +116,10 @@ function renderModules() {
   const count = Object.values(state.mods).reduce((a, b) => a + b, 0);
   box.innerHTML = `
     <p class="opt-label">${moduleSet.title} <small>${moduleSet.desc || ""}</small></p>
-    ${(moduleSet.presets || []).length ? `<div class="mod-presets">${moduleSet.presets.map((pr, i) => `
-      <button type="button" class="chip" data-preset="${i}">${pr.label}${pr.desc ? ` <small>${pr.desc}</small>` : ""}</button>`).join("")}</div>` : ""}
+    ${presets.length ? `<div class="mod-presets">${presets.map((pr, i) => {
+      const on = modules.every(m => (pr.qty[m.id] || 0) === state.mods[m.id]);
+      return `<button type="button" class="chip${on ? " is-on" : ""}" data-preset="${i}">${pr.label}${pr.desc ? ` <small>${pr.desc}</small>` : ""}</button>`;
+    }).join("")}</div>` : ""}
     <ul class="mods">
       ${modules.map(m => { const v = modVariant(m); return `
       <li class="mod${m.id === product.id ? " is-current" : ""}">
@@ -135,8 +143,7 @@ function renderModules() {
     render();
   }));
   box.querySelectorAll("[data-preset]").forEach(b => b.addEventListener("click", () => {
-    const pr = moduleSet.presets[b.dataset.preset];
-    modules.forEach(m => (state.mods[m.id] = pr.qty[m.id] || 0));
+    applyPreset(presets[b.dataset.preset]);
     render();
   }));
 }

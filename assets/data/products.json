@@ -281,5 +281,33 @@
         "set": "쿠션 없음"
       }
     ]
+  },
+  {
+    "id": "premi-stool",
+    "status": "hidden",
+    "name": "[프리미] 모듈소파 스툴",
+    "tagline": "소파 앞에 붙여 다리를 올리는 스툴 모듈",
+    "description": "프리미 모듈소파 앞에 붙여 놓는 스툴입니다. 소파와 연결하면 카우치처럼 다리를 뻗고 쉴 수 있고, 따로 떼어 보조 의자로도 쓸 수 있습니다.",
+    "baseMaterial": "leather",
+    "features": [
+      "소파 앞 연결 · 카우치형 구성",
+      "따로 떼어 보조 의자로 사용",
+      "이태리 천연가죽"
+    ],
+    "images": [
+      "assets/img/products/green/6.webp"
+    ],
+    "long": [],
+    "defaultVariant": "stool",
+    "variants": [
+      {
+        "key": "stool",
+        "label": "스툴",
+        "price": 0,
+        "listPrice": null,
+        "size": "",
+        "set": ""
+      }
+    ]
   }
 ]
