@@ -372,6 +372,7 @@ body.drawer-open { overflow: hidden; }
 .brand-social a:hover { opacity: .7; }
 
 /* ---------- Module configurator ---------- */
+.pd-price-note { display: block; margin-top: 4px; font: 13px "Pretendard", sans-serif; color: #999; }
 .mod-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
 .mod-presets .chip small { color: inherit; opacity: .7; margin-left: 4px; font-size: 12px; }
 .mods { border-top: 1px solid #e6e2da; }

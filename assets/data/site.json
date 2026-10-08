@@ -47,7 +47,8 @@
     {
       "id": "green",
       "variant": "corner",
-      "hover": 1
+      "hover": 1,
+      "title": "[프리미] 모듈소파 자유 구성"
     }
   ],
   "materials": {

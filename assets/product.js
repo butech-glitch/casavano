@@ -125,7 +125,7 @@ function renderModules() {
       <li class="mod${m.id === product.id ? " is-current" : ""}">
         <a class="mod-thumb" href="product.html?id=${m.id}"><img src="${m.thumb || m.images[0]}" alt=""></a>
         <div class="mod-info">
-          <a class="mod-name" href="product.html?id=${m.id}">${m.name}</a>
+          <a class="mod-name" href="product.html?id=${m.id}">${m.moduleName || m.name}</a>
           <span class="mod-meta">${v.size}</span>
           ${priceHTML(v, "mod-price")}
         </div>
@@ -156,6 +156,7 @@ function render() {
   if (moduleSet) {
     renderModules();
     const total = moduleTotal();
+    $("pdPrice").innerHTML = `<span class="price price--lg"><span class="price-sale">${won(total)}</span></span><span class="pd-price-note">선택한 구성 금액</span>`;
     $("pdTotal").textContent = won(total);
     $("addCart").disabled = $("buyNow").disabled = total === 0;
     return;
@@ -187,7 +188,7 @@ const currentItem = () => ({
 // 모듈 소파는 선택한 모듈마다 한 줄씩 담음 (소재·컬러는 같게)
 const orderItems = () => !moduleSet ? [currentItem()] : modules.filter(m => state.mods[m.id] > 0).map(m => {
   const v = modVariant(m);
-  return { ...currentItem(), id: m.id, name: m.name, variant: v.key, variantLabel: v.label, price: v.price, qty: state.mods[m.id], image: m.thumb || m.images[0] };
+  return { ...currentItem(), id: m.id, name: m.moduleName || m.name, variant: v.key, variantLabel: v.label, price: v.price, qty: state.mods[m.id], image: m.thumb || m.images[0] };
 });
 
 $("addCart").addEventListener("click", () => {
