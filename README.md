@@ -19,6 +19,6 @@
 PG사 연동 시 `assets/common.js` 의 `checkout(items)` 함수에서 결제창을 호출하면 됩니다.
 
 ## 도메인
-도메인: **casavano.co.kr** (가비아 구매, 만료 2027-10-08). `CNAME` 파일과 가비아 DNS로 연결합니다.
+도메인: **casavano.co.kr** (가비아 구매, 만료 2027-10-08). 가비아 DNS + `CNAME` 파일로 연결됨 (HTTPS 적용).
 - `@` A 레코드: 185.199.108.153 / 185.199.109.153 / 185.199.110.153 / 185.199.111.153
 - `www` CNAME: butech-glitch.github.io.

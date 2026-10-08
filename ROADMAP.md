@@ -3,7 +3,7 @@
 마지막 정리: 2026-10-08
 
 ## 진행 중
-- [ ] **도메인 연결**: casavano.co.kr (가비아 구매 2026-10-08) → 가비아 DNS 등록 → CNAME · HTTPS 설정
+- [x] **도메인 연결**: casavano.co.kr 연결 완료 (2026-10-08, 가비아 DNS · CNAME · HTTPS 강제)
   - A 레코드 `@` → 185.199.108.153 / 185.199.109.153 / 185.199.110.153 / 185.199.111.153
   - CNAME `www` → butech-glitch.github.io.
   - 완료 후: `CNAME` 파일 추가, GitHub Pages 도메인 등록, HTTPS 강제 설정
