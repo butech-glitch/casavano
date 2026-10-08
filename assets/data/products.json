@@ -212,7 +212,7 @@
     "id": "green",
     "status": "sale",
     "name": "[프리미] 모듈소파 코너형",
-    "tagline": "원하는 만큼 연결하고, 마음대로 재배치하세요",
+    "tagline": "소파 양 끝과 모서리를 잡아주는 코너 모듈",
     "description": "프리미 소파는 모듈형으로 형태와 색상을 고르고 제작 가능한 모듈 소파입니다. 코너 모듈을 더해 원하는 형태의 소파를 완성하세요.",
     "baseMaterial": "leather",
     "features": [
@@ -251,5 +251,35 @@
     "fit": {
       "assets/img/products/green/7.webp": "cover"
     }
+  },
+  {
+    "id": "premi-gois",
+    "status": "sale",
+    "name": "[프리미] 모듈소파 고이스",
+    "tagline": "코너 모듈 사이에 연결하는 중간(고이스) 모듈",
+    "description": "프리미 모듈소파의 중간 모듈입니다. 코너 모듈과 함께 원하는 개수만큼 연결해 공간에 맞는 길이의 소파를 완성하세요. 코너 모듈 2개와 고이스 2개를 연결하면 4인용 소파가 됩니다.",
+    "baseMaterial": "leather",
+    "features": [
+      "코너 모듈과 자유롭게 연결",
+      "원하는 개수만큼 구성",
+      "이태리 천연가죽"
+    ],
+    "images": [
+      "assets/img/products/premi-gois/1.webp",
+      "assets/img/products/premi-gois/2.webp",
+      "assets/img/products/premi-gois/3.webp"
+    ],
+    "long": [],
+    "defaultVariant": "gois",
+    "variants": [
+      {
+        "key": "gois",
+        "label": "고이스 모듈",
+        "price": 1100000,
+        "listPrice": null,
+        "size": "W900 × D1050 × H730",
+        "set": "쿠션 없음"
+      }
+    ]
   }
 ]

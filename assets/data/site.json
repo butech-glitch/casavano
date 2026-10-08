@@ -105,5 +105,26 @@
         }
       ]
     }
-  }
+  },
+  "moduleSets": [
+    {
+      "id": "premi-module",
+      "title": "모듈 구성",
+      "desc": "코너 모듈과 고이스를 원하는 개수만큼 골라 소파를 완성하세요.",
+      "items": [
+        "green",
+        "premi-gois"
+      ],
+      "presets": [
+        {
+          "label": "4인용",
+          "desc": "코너 2 + 고이스 2",
+          "qty": {
+            "green": 2,
+            "premi-gois": 2
+          }
+        }
+      ]
+    }
+  ]
 }

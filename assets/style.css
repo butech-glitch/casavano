@@ -371,6 +371,21 @@ body.drawer-open { overflow: hidden; }
 .brand-social span span, .brand-social a span { font-style: italic; }
 .brand-social a:hover { opacity: .7; }
 
+/* ---------- Module configurator ---------- */
+.mod-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.mod-presets .chip small { color: inherit; opacity: .7; margin-left: 4px; font-size: 12px; }
+.mods { border-top: 1px solid #e6e2da; }
+.mod { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid #e6e2da; }
+.mod.is-current { background: linear-gradient(90deg, rgba(50,83,54,.06), transparent 70%); }
+.mod-thumb img { width: 64px; height: 64px; object-fit: cover; background: #f3f0ea; display: block; }
+.mod-info { display: grid; gap: 2px; font-family: "Pretendard", sans-serif; }
+.mod-name { font-size: 14px; color: #222; }
+.mod-name:hover { color: var(--green); }
+.mod-meta { font-size: 12px; color: #999; }
+.mod-price { font-size: 14px; }
+.mod-sum { margin-top: 10px; font: 13px "Pretendard", sans-serif; color: var(--green); }
+.pd-actions .btn:disabled { opacity: .4; cursor: not-allowed; }
+
 /* ---------- Reveal animation ---------- */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
 .reveal.is-in { opacity: 1; transform: none; }

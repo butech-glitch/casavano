@@ -10,6 +10,14 @@ const state = {
   qty: 1,
 };
 
+// 모듈 소파: 같은 세트의 모듈(코너·고이스 등)을 개수별로 골라 구성
+const moduleSet = (SITE.moduleSets || []).find(m => m.items.includes(product.id));
+const modules = moduleSet ? moduleSet.items.map(findProduct).filter(p => p && p.status === "sale") : [];
+const modVariant = p => p.variants.find(v => v.key === p.defaultVariant) || p.variants[0];
+if (moduleSet) {
+  state.mods = Object.fromEntries(modules.map(m => [m.id, m.id === product.id ? 1 : 0]));
+}
+
 const $ = id => document.getElementById(id);
 document.title = `${product.name} : casavano 까사바노`;
 $("pdCrumb").textContent = product.name;
@@ -97,9 +105,54 @@ function renderOptions() {
   $("optColorName").textContent = `: ${c.name} (${c.en})`;
 }
 
+function renderModules() {
+  const box = $("optModules");
+  const count = Object.values(state.mods).reduce((a, b) => a + b, 0);
+  box.innerHTML = `
+    <p class="opt-label">${moduleSet.title} <small>${moduleSet.desc || ""}</small></p>
+    ${(moduleSet.presets || []).length ? `<div class="mod-presets">${moduleSet.presets.map((pr, i) => `
+      <button type="button" class="chip" data-preset="${i}">${pr.label}${pr.desc ? ` <small>${pr.desc}</small>` : ""}</button>`).join("")}</div>` : ""}
+    <ul class="mods">
+      ${modules.map(m => { const v = modVariant(m); return `
+      <li class="mod${m.id === product.id ? " is-current" : ""}">
+        <a class="mod-thumb" href="product.html?id=${m.id}"><img src="${m.images[0]}" alt=""></a>
+        <div class="mod-info">
+          <a class="mod-name" href="product.html?id=${m.id}">${m.name}</a>
+          <span class="mod-meta">${v.size}</span>
+          ${priceHTML(v, "mod-price")}
+        </div>
+        <div class="qty qty--sm">
+          <button type="button" data-mod="${m.id}" data-d="-1" aria-label="${m.name} 수량 감소">−</button>
+          <input type="number" value="${state.mods[m.id]}" readonly aria-label="${m.name} 수량">
+          <button type="button" data-mod="${m.id}" data-d="1" aria-label="${m.name} 수량 증가">+</button>
+        </div>
+      </li>`; }).join("")}
+    </ul>
+    <p class="mod-sum">${modules.filter(m => state.mods[m.id]).map(m => `${modVariant(m).label} ${state.mods[m.id]}개`).join(" + ") || "모듈을 선택해 주세요"}${count ? ` · 총 ${count}개 모듈` : ""}</p>`;
+  box.querySelectorAll("[data-mod]").forEach(b => b.addEventListener("click", () => {
+    const id = b.dataset.mod;
+    state.mods[id] = Math.max(0, Math.min(20, state.mods[id] + Number(b.dataset.d)));
+    render();
+  }));
+  box.querySelectorAll("[data-preset]").forEach(b => b.addEventListener("click", () => {
+    const pr = moduleSet.presets[b.dataset.preset];
+    modules.forEach(m => (state.mods[m.id] = pr.qty[m.id] || 0));
+    render();
+  }));
+}
+
+const moduleTotal = () => modules.reduce((sum, m) => sum + modVariant(m).price * state.mods[m.id], 0);
+
 function render() {
   renderOptions();
   $("pdPrice").innerHTML = priceHTML(state.variant, "price--lg");
+  if (moduleSet) {
+    renderModules();
+    const total = moduleTotal();
+    $("pdTotal").textContent = won(total);
+    $("addCart").disabled = $("buyNow").disabled = total === 0;
+    return;
+  }
   $("qty").value = state.qty;
   $("pdTotal").textContent = won(state.variant.price * state.qty);
 }
@@ -124,11 +177,25 @@ const currentItem = () => ({
   image: variantImages(product, state.variant)[0],
 });
 
+// 모듈 소파는 선택한 모듈마다 한 줄씩 담음 (소재·컬러는 같게)
+const orderItems = () => !moduleSet ? [currentItem()] : modules.filter(m => state.mods[m.id] > 0).map(m => {
+  const v = modVariant(m);
+  return { ...currentItem(), id: m.id, name: m.name, variant: v.key, variantLabel: v.label, price: v.price, qty: state.mods[m.id], image: m.images[0] };
+});
+
 $("addCart").addEventListener("click", () => {
-  Cart.add(currentItem());
+  const items = orderItems();
+  if (!items.length) return;
+  items.forEach(i => Cart.add(i));
   toast(`장바구니에 담았습니다. <a href="cart.html">장바구니 보기 →</a>`);
 });
-$("buyNow").addEventListener("click", () => checkout([currentItem()]));
+$("buyNow").addEventListener("click", () => { const items = orderItems(); if (items.length) checkout(items); });
+
+if (moduleSet) {
+  $("optModules").hidden = false;
+  $("optSizeWrap").hidden = true;
+  document.querySelector(".pd-buy .qty").style.display = "none";
+}
 
 // ---------- Spec table & long images ----------
 $("specBody").innerHTML = product.variants.map(v => `
